@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://epjvtt8sgm8i"]
+
+[ext_resource type="Script" path="res://Hero.gd" id="1_mtx77"]
+[ext_resource type="Texture2D" uid="uid://7qa55chegn4y" path="res://Art/HeroPaperDoll.png" id="2_byxnx"]
+
+[node name="Hero" type="CharacterBody2D"]
+position = Vector2(404, -130)
+script = ExtResource("1_mtx77")
+
+[node name="HeroSprite" type="Sprite2D" parent="."]
+position = Vector2(-404, 130)
+texture = ExtResource("2_byxnx")
+hframes = 13
+vframes = 21
+frame = 130
+region_rect = Rect2(17, 527, 30, 49)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath("../AnimationPlayer")
