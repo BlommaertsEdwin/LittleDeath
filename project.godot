@@ -20,6 +20,21 @@ config/icon="res://icon.svg"
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg")
+
+[filesystem]
+
+import/blender/enabled=false
+
+[input]
+
+move={
+"deadzone": 0.5,
+"events": []
+}
+
 [rendering]
 
 renderer/rendering_method="mobile"
