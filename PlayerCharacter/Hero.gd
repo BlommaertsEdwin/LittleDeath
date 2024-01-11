@@ -6,36 +6,37 @@ extends CharacterBody2D
 @onready var destination = Vector2()
 @onready var movement = Vector2()
 @onready var herostatechart = $HeroStateChart
+@onready var moving: bool = false
 @export var MaxSpeed: int = 50
 @export var Friction: float = 0.15
 @export var Accelearation: int = 10
-@export var speed = 0
+@export var speed = 500
+
 
 
 # INPUT
-func _unhandled_input(event):
-	if event.is_action_pressed("move") and state != DEAD:
-		destination = get_global_mouse_position()
+func _input(event):
+	if event.is_action_pressed("right_click"):
+		$HeroStateChart.send_event('to_moving')
+	if event.is_action_released("right_click"):
+		$HeroStateChart.send_event("to_idle")
 
-	
+
 func MovementLoop(delta):
-	speed = Accelearation * delta
-	if speed >= MaxSpeed:
-			speed = MaxSpeed
-	movement = position.direction_to(destination) * speed
+	destination = (get_global_mouse_position() - global_position)
+	if destination.length() > 25:
+		destination = destination.normalized() * speed
+	velocity = destination
+	move_and_slide()
+	
+func IdleLoop(delta):
+	pass
 
-	
-func _physics_process(delta):
-	
-	
-	
-	
-	
-	match state:
-		MOVE:
-			MovementLoop(delta)
-		#ATTACK:
-			#AttackLoop(delta)
-		#DEAD:
-			#DeadLoop(delta)
 
+# SIGNALS
+func _on_moving_state_processing(delta):
+	MovementLoop(delta)
+	
+func _on_idle_state_processing(delta):
+	IdleLoop(delta)
+	

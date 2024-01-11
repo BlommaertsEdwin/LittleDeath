@@ -13,6 +13,7 @@
 vertices = PackedVector2Array(629, 16, 627, 468, 11, 470, 8, 16)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(629, 16, 627, 468, 11, 470, 8, 16)])
+source_geometry_group_name = &"navigation_polygon_source_group"
 
 [node name="AntHill" type="Node2D"]
 script = ExtResource("1_l75mo")

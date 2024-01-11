@@ -1,9 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://epjvtt8sgm8i"]
+[gd_scene load_steps=19 format=3 uid="uid://epjvtt8sgm8i"]
 
 [ext_resource type="Script" path="res://PlayerCharacter/Hero.gd" id="1_mtx77"]
 [ext_resource type="Texture2D" uid="uid://7qa55chegn4y" path="res://Art/HeroPaperDoll.png" id="2_byxnx"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_hqi1f"]
-[ext_resource type="Script" path="res://addons/godot_state_charts/animation_tree_state.gd" id="4_8ckde"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_4svio"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_icy3n"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_loosf"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="7_3rfyf"]
 
 [sub_resource type="Animation" id="Animation_ppekt"]
 resource_name = "WalkDown"
@@ -165,16 +168,12 @@ _data = {
 "WalkUp": SubResource("Animation_v7ndm")
 }
 
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_ujvir"]
+
 [node name="Hero" type="CharacterBody2D"]
-position = Vector2(404, -130)
 script = ExtResource("1_mtx77")
-MaxSpeed = null
-Friction = null
-Accelearation = null
-speed = null
 
 [node name="HeroSprite" type="Sprite2D" parent="."]
-position = Vector2(-404, 130)
 texture = ExtResource("2_byxnx")
 hframes = 13
 vframes = 21
@@ -186,18 +185,69 @@ region_rect = Rect2(17, 527, 30, 49)
 [node name="HeroStateChart" type="Node" parent="."]
 script = ExtResource("3_hqi1f")
 
-[node name="AnimationTreeState" type="Node" parent="HeroStateChart"]
-script = ExtResource("4_8ckde")
-animation_tree = NodePath("../../HeroAnimationTree")
-state_name = &"Idle"
+[node name="Root" type="Node" parent="HeroStateChart"]
+script = ExtResource("4_4svio")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="HeroStateChart/Root"]
+script = ExtResource("4_4svio")
+initial_state = NodePath("Down")
+
+[node name="Up" type="Node" parent="HeroStateChart/Root/Idle"]
+script = ExtResource("5_icy3n")
+
+[node name="Down" type="Node" parent="HeroStateChart/Root/Idle"]
+script = ExtResource("5_icy3n")
+
+[node name="Left" type="Node" parent="HeroStateChart/Root/Idle"]
+script = ExtResource("5_icy3n")
+
+[node name="Right" type="Node" parent="HeroStateChart/Root/Idle"]
+script = ExtResource("5_icy3n")
+
+[node name="Transition" type="Node" parent="HeroStateChart/Root/Idle"]
+script = ExtResource("6_loosf")
+to = NodePath("../../Moving")
+event = &"to_moving"
+
+[node name="Moving" type="Node" parent="HeroStateChart/Root"]
+script = ExtResource("4_4svio")
+initial_state = NodePath("Down")
+
+[node name="Up" type="Node" parent="HeroStateChart/Root/Moving"]
+script = ExtResource("5_icy3n")
+
+[node name="Down" type="Node" parent="HeroStateChart/Root/Moving"]
+script = ExtResource("5_icy3n")
+
+[node name="Left" type="Node" parent="HeroStateChart/Root/Moving"]
+script = ExtResource("5_icy3n")
+
+[node name="Right" type="Node" parent="HeroStateChart/Root/Moving"]
+script = ExtResource("5_icy3n")
+
+[node name="Transition" type="Node" parent="HeroStateChart/Root/Moving"]
+script = ExtResource("6_loosf")
+to = NodePath("../../Idle")
+event = &"to_idle"
 
 [node name="HeroAnimationTree" type="AnimationTree" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_tef1y")
 }
+tree_root = SubResource("AnimationNodeBlendSpace2D_ujvir")
 anim_player = NodePath("../HeroAnimationPlayer")
+parameters/blend_position = Vector2(0, 0)
 
 [node name="HeroAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_tef1y")
 }
+
+[node name="StateChartDebugger" parent="HeroAnimationPlayer" instance=ExtResource("7_3rfyf")]
+offset_left = 818.0
+offset_top = 22.0
+initial_node_to_watch = NodePath("../../HeroStateChart")
+
+[connection signal="state_processing" from="HeroStateChart/Root/Idle" to="." method="_on_idle_state_processing"]
+[connection signal="state_processing" from="HeroStateChart/Root/Moving" to="." method="_on_moving_state_processing"]
