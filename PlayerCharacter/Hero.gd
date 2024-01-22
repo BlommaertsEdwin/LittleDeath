@@ -20,13 +20,20 @@ func _input(event):
 	if event.is_action_pressed("right_click"):
 		button_down = true
 		$HeroStateChart.send_event('to_moving')
-		
+
 	if event.is_action_released("right_click"):
 		button_down = false
 		$HeroStateChart.send_event("to_idle")
 
+	if event.is_action_pressed("left_click"):
+		$HeroStateChart.send_event("to_attacking")
+		
+	#if event.is_action_released("left_click"):
+		#$HeroStateChart.send_event("to_idle")
 
-func MovementLoop(delta):
+
+#STATE LOOPS
+func MovementLoop(_delta):
 	destination = get_global_mouse_position() - global_position
 	
 	if destination.length() > 5:
@@ -35,24 +42,47 @@ func MovementLoop(delta):
 		velocity = Vector2.ZERO
 		$HeroStateChart.send_event("to_idle")
 	animTree.set("parameters/Walking/blend_position", destination)
+	animTree.set("parameters/Attacking/blend_position", destination)
 	move_and_slide()
 	pass
 	
-func IdleLoop(delta):
+func IdleLoop(_delta):
 	destination = get_global_mouse_position() - global_position
 	animTree.set("parameters/Idle/blend_position", destination)
+	animTree.set("parameters/Attacking/blend_position", destination)
 	if destination.length() > 5 and button_down:
 		$HeroStateChart.send_event("to_moving")
+		
+func AttackingLoop(_delta):
+	pass
 
  #SIGNALS
 func _on_moving_state_processing(delta):
 	MovementLoop(delta)
-	
+
 func _on_idle_state_processing(delta):
 	IdleLoop(delta)
-
+	
+func _on_attacking_state_processing(delta):
+	AttackingLoop(delta)
+	
 func _on_idle_state_entered():
 	$HeroAnimationTree.get("parameters/playback").travel("Idle")
 
 func _on_moving_state_entered():
 	$HeroAnimationTree.get("parameters/playback").travel("Walking")
+
+func _on_attacking_state_entered():
+	$HeroAnimationTree.get("parameters/playback").travel("Attacking")
+	#$HeroAnimationTree.get("parameters/playback").travel("Idle")
+	
+
+func _attack_animation_finished():
+	if button_down:
+		herostatechart.send_event("to")
+	else:
+		herostatechart.send_event("to_idle")
+	
+	
+
+
