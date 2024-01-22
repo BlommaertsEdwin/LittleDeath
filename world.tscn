@@ -5,8 +5,4 @@
 [node name="World" type="Node2D"]
 
 [node name="Hero" parent="." instance=ExtResource("1_n0and")]
-position = Vector2(534, 292)
-MaxSpeed = 50
-Friction = 0.15
-Accelearation = 10
-speed = 500
+position = Vector2(591, 332)
