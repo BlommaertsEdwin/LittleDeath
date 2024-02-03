@@ -7,7 +7,7 @@ extends PanelContainer
 
 func _clear_gridcontainer():
 	for child in grid_container.get_children():
-		child.queue_free()	
+		child.queue_free()
 
 func open(inventory:Inventory):
 	show()
@@ -16,7 +16,7 @@ func open(inventory:Inventory):
 	for item in inventory.get_items():
 		var slot = slot_scene.instantiate()
 		grid_container.add_child(slot)
-		slot.display(item)
+		slot.display(item.display())
 
 func _on_close_button_pressed():
 	hide()

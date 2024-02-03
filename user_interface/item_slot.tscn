@@ -7,3 +7,6 @@ script = ExtResource("1_5aj80")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2

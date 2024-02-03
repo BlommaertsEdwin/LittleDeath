@@ -14,8 +14,35 @@ position = Vector2(62, 35)
 
 [node name="Node2D-Pickup" parent="." instance=ExtResource("2_xjghn")]
 
+[node name="Node2D-Pickup4" parent="." instance=ExtResource("2_xjghn")]
+position = Vector2(194, 40)
+
 [node name="Node2D-Pickup2" parent="." instance=ExtResource("2_xjghn")]
 position = Vector2(54, 113)
+item = ExtResource("3_43rl6")
+
+[node name="Node2D-Pickup3" parent="." instance=ExtResource("2_xjghn")]
+position = Vector2(81, 164)
+item = ExtResource("3_43rl6")
+
+[node name="Node2D-Pickup5" parent="." instance=ExtResource("2_xjghn")]
+position = Vector2(139, 194)
+item = ExtResource("3_43rl6")
+
+[node name="Node2D-Pickup6" parent="." instance=ExtResource("2_xjghn")]
+position = Vector2(259, 171)
+item = ExtResource("3_43rl6")
+
+[node name="Node2D-Pickup7" parent="." instance=ExtResource("2_xjghn")]
+position = Vector2(238, 100)
+item = ExtResource("3_43rl6")
+
+[node name="Node2D-Pickup8" parent="." instance=ExtResource("2_xjghn")]
+position = Vector2(287, 67)
+item = ExtResource("3_43rl6")
+
+[node name="Node2D-Pickup9" parent="." instance=ExtResource("2_xjghn")]
+position = Vector2(297, 125)
 item = ExtResource("3_43rl6")
 
 [node name="UiRoot" type="CanvasLayer" parent="."]

@@ -9,3 +9,4 @@ script = ExtResource("1_dahro")
 name = "Scythe"
 scene = ExtResource("1_fqhhb")
 icon = ExtResource("1_f3mb0")
+max_stack_count = 5
