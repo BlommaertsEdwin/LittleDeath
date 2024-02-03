@@ -1,3 +1,4 @@
+class_name Hero
 extends CharacterBody2D
 
 @onready var animated_sprite = $HeroSprite
@@ -13,6 +14,8 @@ extends CharacterBody2D
 @export var Accelearation: int = 10
 @export var speed = 500
 @onready var button_down: bool = false
+
+var inventory:Inventory = Inventory.new()
 
 
 # INPUT
@@ -32,7 +35,7 @@ func _input(event):
 		#$HeroStateChart.send_event("to_idle")
 
 
-#STATE LOOPS
+# STATE LOOPS
 func MovementLoop(_delta):
 	destination = get_global_mouse_position() - global_position
 	
@@ -56,7 +59,7 @@ func IdleLoop(_delta):
 func AttackingLoop(_delta):
 	pass
 
- #SIGNALS
+# SIGNALS
 func _on_moving_state_processing(delta):
 	MovementLoop(delta)
 
@@ -76,13 +79,17 @@ func _on_attacking_state_entered():
 	$HeroAnimationTree.get("parameters/playback").travel("Attacking")
 	#$HeroAnimationTree.get("parameters/playback").travel("Idle")
 	
-
+# ANIMATION ENDINGS
 func _attack_animation_finished():
 	if button_down:
 		herostatechart.send_event("to")
 	else:
 		herostatechart.send_event("to_idle")
+		
+# INVENTORY HANDLING
+		
+func on_item_picked_up(item:Item):
+	print("It got a ", item.name)
+	inventory.add_item(item)
 	
-	
-
 

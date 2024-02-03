@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bg7hiomoqomnl"]
+
+[ext_resource type="Texture2D" uid="uid://dvdquol7mcsj2" path="res://Art/Scythe.png" id="2_fcegg"]
+
+[node name="Scythe" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_fcegg")
+hframes = 13
+vframes = 21
+frame = 65

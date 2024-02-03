@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://crakjitah8cy2"]
+
+[ext_resource type="Script" path="res://user_interface/item_slot.gd" id="1_5aj80"]
+
+[node name="ItemSlot" type="PanelContainer"]
+script = ExtResource("1_5aj80")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://b0776lt7hdtr2"]
+
+[ext_resource type="Script" path="res://Models/item.gd" id="1_dahro"]
+[ext_resource type="Texture2D" uid="uid://bmngbm5h81rlq" path="res://Art/Icons/scythe.png" id="1_f3mb0"]
+[ext_resource type="PackedScene" uid="uid://bg7hiomoqomnl" path="res://Elements/Scythe/Scythe.tscn" id="1_fqhhb"]
+
+[resource]
+script = ExtResource("1_dahro")
+name = "Scythe"
+scene = ExtResource("1_fqhhb")
+icon = ExtResource("1_f3mb0")

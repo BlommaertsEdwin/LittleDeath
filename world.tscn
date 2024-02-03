@@ -1,8 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://b5vww6jrn432r"]
+[gd_scene load_steps=6 format=3 uid="uid://b5vww6jrn432r"]
 
 [ext_resource type="PackedScene" uid="uid://epjvtt8sgm8i" path="res://PlayerCharacter/hero.tscn" id="1_n0and"]
+[ext_resource type="PackedScene" uid="uid://d3b41oxx7ow7k" path="res://Elements/Pickup/pickup.tscn" id="2_xjghn"]
+[ext_resource type="Resource" uid="uid://b5fdoj7na3fyl" path="res://Data/Items/Sword.tres" id="3_43rl6"]
+[ext_resource type="Script" path="res://UiRoot.gd" id="4_3ov3u"]
+[ext_resource type="PackedScene" uid="uid://b6x777qrrcbgo" path="res://user_interface/inventory_dialog.tscn" id="4_soq30"]
 
 [node name="World" type="Node2D"]
 
 [node name="Hero" parent="." instance=ExtResource("1_n0and")]
-position = Vector2(591, 332)
+unique_name_in_owner = true
+position = Vector2(62, 35)
+
+[node name="Node2D-Pickup" parent="." instance=ExtResource("2_xjghn")]
+
+[node name="Node2D-Pickup2" parent="." instance=ExtResource("2_xjghn")]
+position = Vector2(54, 113)
+item = ExtResource("3_43rl6")
+
+[node name="UiRoot" type="CanvasLayer" parent="."]
+script = ExtResource("4_3ov3u")
+
+[node name="InventoryDialog" parent="UiRoot" instance=ExtResource("4_soq30")]
+unique_name_in_owner = true
+visible = false

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://b5fdoj7na3fyl"]
+
+[ext_resource type="Texture2D" uid="uid://dswkhb2xmk4js" path="res://Art/Icons/broadsword.png" id="1_j3mkw"]
+[ext_resource type="PackedScene" uid="uid://bq6osie384o0p" path="res://Elements/Sword/Sword.tscn" id="1_olaj2"]
+[ext_resource type="Script" path="res://Models/item.gd" id="1_vguwb"]
+
+[resource]
+script = ExtResource("1_vguwb")
+name = "Sword"
+scene = ExtResource("1_olaj2")
+icon = ExtResource("1_j3mkw")
